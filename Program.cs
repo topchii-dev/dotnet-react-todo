@@ -1,4 +1,5 @@
 using Domain;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(opt => {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Register a mediatr 
+builder.Services.AddMediatR(typeof(Application.Tasks.ListAll.Handler));
 
 // ADD CORS POLICY
 builder.Services.AddCors(options => {
